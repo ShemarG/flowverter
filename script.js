@@ -70,7 +70,36 @@ class Cubic_Centimetre {
   }
 }
 
+<<<<<<< HEAD
 let time_dict = {
+=======
+class Converter {
+  constructor(unit, quantity){
+    this.unit = unit,
+    this.quantity = quantity,
+    this['Litre'] = Litre,
+    this['Imperial Gallon'] = Imperial_Gallon,
+    this['Cubic Inch'] = Cubic_Inch,
+    this['Cubic Foot'] = Cubic_Foot,
+    this['Cubic Centimetre'] = Cubic_Centimetre,
+    this['Cubic Metre'] = Cubic_Metre
+
+
+  }
+
+  calculate_conversion() {
+    let selected_unit = this[this.unit]
+    return new selected_unit(this.quantity)
+  }
+
+  calculate_rates(raw_obj, time_unit) {
+    let {name, sym, ...conversion} = raw_obj
+    let time_table = {
+      name,
+      sym,
+    }
+    let time_dict = {
+>>>>>>> b34ea11f654f354198a3bba676cf46191ba75942
       'sec':{
         sec: 1,
         min: 60,
