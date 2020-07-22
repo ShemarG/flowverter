@@ -70,29 +70,7 @@ class Cubic_Centimetre {
   }
 }
 
-class Converter {
-  constructor(unit, quantity){
-    this.unit = unit,
-    this.quantity = quantity,
-    this['Litre'] = Litre,
-    this['Imperial Gallon'] = Imperial_Gallon,
-    this['Cubic Inch'] = Cubic_Inch,
-    this['Cubic Foot'] = Cubic_Foot,
-    this['Cubic Centimetre'] = Cubic_Centimetre,
-    this['Cubic Metre'] = Cubic_Metre
-
-
-  }
-
-  calculate_conversion() {
-    let selected_unit = this[this.unit]
-    return new selected_unit(this.quantity)
-  }
-
-  calculate_rates(raw_obj, time_unit) {
-    let {name, sym, ...conversion} = raw_obj
-    let time_table = {}
-    let time_dict = {
+let time_dict = {
       'sec':{
         sec: 1,
         min: 60,
@@ -119,12 +97,48 @@ class Converter {
       }
     }
 
+class Converter {
+  constructor(unit, quantity){
+    this.unit = unit,
+    this.quantity = quantity,
+    this['Litre'] = Litre,
+    this['Imperial Gallon'] = Imperial_Gallon,
+    this['Cubic Inch'] = Cubic_Inch,
+    this['Cubic Foot'] = Cubic_Foot,
+    this['Cubic Centimetre'] = Cubic_Centimetre,
+    this['Cubic Metre'] = Cubic_Metre
+  }
+
+  calculate_conversion() {
+    let selected_unit = this[this.unit]
+    return new selected_unit(this.quantity)
+  }
+
+  calculate_rates(raw_obj, time_unit) {
+    let {name, sym, ...conversion} = raw_obj
+    let time_table = {[this.unit]:{}}
     for (let unit in conversion){
       time_table[unit] = {}
       for (let time in time_dict) {
+        time_table[this.unit][time] = this.quantity * time_dict[time_unit][time]
         time_table[unit][time] = conversion[unit] * time_dict[time_unit][time]
       }
     }
     return time_table
   }
+
+  // working
+  calculate_volume_elapsed(rate, rate_unit, time, time_unit) {
+    return (rate * time_dict[rate_unit][time_unit]) * time
+  }
+
+  // under construction
+  calculate_time_required(rate, rate_unit, quantity, desired_unit){
+    return (quantity / (time_dict[rate_unit][rate_unit]))
+  }
 }
+
+let foo = new Converter('Litre', 30)
+let bar = foo.calculate_conversion()
+console.log(foo.calculate_rates(bar, 'min'))
+console.log(foo.calculate_volume_elapsed(4, 'hr', 180, 'sec'))
