@@ -3,8 +3,6 @@
 
 #### Built with the following technologies
 - JavaScript
-- Express
-- Node.js
 
 #### Using the following Libraries
 - Semantic UI
