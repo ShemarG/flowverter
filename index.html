@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html>
   <head>
-    <meta charset="utf-8">
     <title>Flowverter App</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.0/css/bulma.css">
   </head>
@@ -18,5 +17,65 @@
         </div>
       </div>
     </section>
+    <div class="tabs is-toggle is-fullwidth">
+      <ul>
+        <li class="is-active" id="conversion">
+          <a>
+            <span>Conversion</span>
+          </a>
+        </li>
+        <li id="flowrate">
+          <a>
+            <span>Flowrate</span>
+          </a>
+        </li>
+        <li id="volume-elapsed">
+          <a>
+            <span>Volume Elapsed</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <section class="section" id="conversion-tab">
+      <div class="field has-addons">
+        <p class="control">
+          <span class="select">
+            <select id="unitOptions">
+            </select>
+          </span>
+        </p>
+        <p class="control">
+          <input class="input" id="quantity" type="text" placeholder="Quantity">
+        </p>
+        <p class="control" id="calculate">
+          <a class="button">
+            Calculate
+          </a>
+        </p>
+      </div>
+      <div class="table-container">
+        <table class="table is-bordered is-striped is-hoverable">
+          <thead>
+            <tr>
+              <th>Unit</th>
+              <th>Symbol</th>
+              <th>Imperial Gallons</th>
+              <th>Cubic Inches</th>
+              <th>Cubic Feet</th>
+              <th>Cubic Centimetres</th>
+              <th>Cubic Metres</th>
+            </tr>
+          </thead>
+          <tbody id="table-body">
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <script type="text/javascript" src="./src/tabs.js"></script>
+    <script type="text/javascript" src="./script.js"></script>
+    <script type="text/javascript" src="./src/dynamicYield.js"></script>
+    <script type="text/javascript" src="./src/calculateConversion.js"></script>
   </body>
 </html>

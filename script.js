@@ -81,7 +81,6 @@ const dictionary = {
 
 let calculate = (unit, quantity) => {
   let selected_unit = dictionary[unit]
-  console.log(new selected_unit(quantity))
+  let result = new selected_unit(quantity)
+  return result
 }
-
-calculate('Litre', 1)
