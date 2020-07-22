@@ -70,18 +70,67 @@ class Cubic_Centimetre {
   }
 }
 
-const dictionary = {
-  'Litre': Litre,
-  'Imperial Gallon': Imperial_Gallon,
-  'Cubic Inch': Cubic_Inch,
-  'Cubic Foot': Cubic_Foot,
-  'Cubic Centimetre': Cubic_Centimetre,
-  'Cubic Metre': Cubic_Metre
+class converter {
+  constructor(unit, quantity){
+    this.unit = unit,
+    this.quantity = quantity,
+    this['Litre'] = Litre,
+    this['Imperial Gallon'] = Imperial_Gallon,
+    this['Cubic Inch'] = Cubic_Inch,
+    this['Cubic Foot'] = Cubic_Foot,
+    this['Cubic Centimetre'] = Cubic_Centimetre,
+    this['Cubic Metre'] = Cubic_Metre
+
+
+  }
+
+  calculate_conversion() {
+    let selected_unit = this[this.unit]
+    return new selected_unit(this.quantity)
+  }
+
+  calculate_rates(raw_obj, time_unit) {
+    let {name, sym, ...conversion} = raw_obj
+    let time_table = {}
+    let time_dict = {
+      'sec':{
+        sec: 1,
+        min: 60,
+        hr: 3600,
+        day: 86400
+      },
+      'min': {
+        sec: (1/60),
+        min: 1,
+        hr: 60,
+        day: 1440
+      },
+      'hr': {
+        sec: (1/3600),
+        min: (1/60),
+        hr: 1,
+        day: 24
+      },
+      'day': {
+        sec: (1/86400),
+        min: (1/1440),
+        hr: (1/24),
+        day: 1
+      }
+    }
+
+    for (let unit in conversion){
+      time_table[unit] = {}
+      for (let time in time_dict) {
+        time_table[unit][time] = conversion[unit] * time_dict[time_unit][time]
+      }
+    }
+    return time_table
+  }
 }
 
-let calculate = (unit, quantity) => {
-  let selected_unit = dictionary[unit]
-  console.log(new selected_unit(quantity))
-}
 
-calculate('Litre', 1)
+let foo = new converter('Litre', 1)
+let bar = foo.calculate_conversion()
+console.log(bar)
+console.log(foo.calculate_rates(bar, 'min'))
