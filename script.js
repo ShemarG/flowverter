@@ -91,7 +91,10 @@ class Converter {
 
   calculate_rates(raw_obj, time_unit) {
     let {name, sym, ...conversion} = raw_obj
-    let time_table = {}
+    let time_table = {
+      name,
+      sym,
+    }
     let time_dict = {
       'sec':{
         sec: 1,
