@@ -30,4 +30,3 @@ volumeElapsedTab.addEventListener('click', (e) => {
   conversionSection.style.display = "none"
   //flowrateTab.style.display = none
 })
-console.log('working')

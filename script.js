@@ -70,7 +70,7 @@ class Cubic_Centimetre {
   }
 }
 
-class converter {
+class Converter {
   constructor(unit, quantity){
     this.unit = unit,
     this.quantity = quantity,
@@ -128,9 +128,3 @@ class converter {
     return time_table
   }
 }
-
-
-let foo = new converter('Litre', 1)
-let bar = foo.calculate_conversion()
-console.log(bar)
-console.log(foo.calculate_rates(bar, 'min'))
