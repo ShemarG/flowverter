@@ -35,14 +35,17 @@ button.addEventListener('click', (e) => {
   table.appendChild(row)
   tableArea.appendChild(table)
 
-  //Generates flowrate conversion in second tab
-  flowrateTableHead.innerHTML = ''
-  tableFlow.innerHTML = ''
-  const flowrate = conversion.calculate_rates(timeUnits.value)
-  console.log(flowrate)
-  unitList.forEach((unit) => {
-    let header = document.createElement('th')
-    header.innerHTML = `${unit}/${timeUnits.value}`
-    flowrateTableHead.appendChild(header)
-  })
+  let rates = conversion.calculate_rates(timeUnits.value)
+  let table_pop = (data) => {
+  for (let key in data){
+    let row = document.getElementById(key)
+    for (let time in data[key]){
+      let cell = row.insertCell(-1)
+      cell.innerHTML = data[key][time]
+      }
+    }
+  }
+
+  table_pop(rates)
+
 })
