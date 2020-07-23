@@ -148,9 +148,9 @@ class Converter {
   }
 }
 
-let foo = new Converter('Litre', 1)
-let bar = foo.calculate_conversion()
-let car = foo.calculate_rates(bar, 'sec')
-console.log(car)
-console.log(foo.calculate_volume_elapsed(car, 2.5 ,'sec'))
-console.log(foo.calculate_time_required(car, 400, 'Imperial Gallon'))
+// let foo = new Converter('Litre', 1)
+// let bar = foo.calculate_conversion()
+// let car = foo.calculate_rates(bar, 'sec')
+// console.log(car)
+// console.log(foo.calculate_volume_elapsed(car, 2.5 ,'sec'))
+// console.log(foo.calculate_time_required(car, 400, 'Imperial Gallon'))

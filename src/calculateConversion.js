@@ -1,41 +1,37 @@
-const table = document.getElementById('table-body')
-const tableFlow = document.getElementById('table-body-flow')
-const button = document.getElementById('calculate')
-const buttonFlow = document.getElementById('calculate-flow')
 const quantity = document.getElementById('quantity')
-const quantityFlow = document.getElementById('quantity-flow')
-const timeUnits = document.getElementById('time-unit')
-
+const time = document.getElementById('time')
+const table = document.getElementById('table-body')
+const conversionTableHead = document.getElementById('conversion-head')
+const tableFlow = document.getElementById('table-body-flow')
+const flowrateTableHead = document.getElementById('flowrate-head')
+const button = document.getElementById('calculate')
 
 button.addEventListener('click', (e) => {
+  // Generates regular conversion in first tab
   const conversion = new Converter(unitOptions.value, quantity.value)
   const calculation = conversion.calculate_conversion()
+  const unitList = Object.keys(dictionary).filter((unit) => unit !== unitOptions.value)
   let row = document.createElement('tr')
+  let head = document.createElement('tr')
+  unitList.unshift("Symbol")
+  unitList.unshift("Unit")
+  unitList.forEach((unit) => {
+    let header = document.createElement('th')
+    header.innerHTML = unit
+    conversionTableHead.appendChild(header)
+  })
   for (property of Object.values(calculation)){
     let data = document.createElement('td')
     data.innerHTML = property
     row.appendChild(data)
   }
   table.appendChild(row)
-})
 
-buttonFlow.addEventListener('click', (e) => {
-  const conversion = new Converter(unitOptionsFlow.value, quantityFlow.value)
-  const calculation = conversion.calculate_rates(conversion.calculate_conversion(), timeUnits.value)
-  console.log(calculation)
-  let row = document.createElement('tr')
-  let symbol = document.createElement('td')
-  let unit = document.createElement('td')
-  symbol.innerHTML = calculation.sym
-  unit.innerHTML = calculation.name
-  row.appendChild(symbol)
-  row.appendChild(unit)
-  for (property of Object.values(calculation)){
-    if(property[timeUnit.value]){
-      let data = document.createElement('td')
-      data.innerHTML = property[timeUnit.value]
-      row.appendChild(data)
-    }
-  }
-  tableFlow.appendChild(row)
+  //Generates flowrate conversion in second tab
+  const flowrate = new Converter(unitOptions.value, quantity.value, time.value)
+  unitList.forEach((unit) => {
+    let header = document.createElement('th')
+    header.innerHTML = `${unit}/${timeUnits.value}`
+    flowrateTableHead.appendChild(header)
+  })
 })
