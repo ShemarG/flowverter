@@ -6,15 +6,17 @@ const tableFlow = document.getElementById('table-body-flow')
 const flowrateTableHead = document.getElementById('flowrate-head')
 const button = document.getElementById('calculate')
 
+
 button.addEventListener('click', (e) => {
   // Generates regular conversion in first tab
   const conversion = new Converter(unitOptions.value, quantity.value)
   const calculation = conversion.calculate_conversion()
-  const unitList = Object.keys(dictionary).filter((unit) => unit !== unitOptions.value)
+  conversionTableHead.innerHTML = ''
+  table.innerHTML = ''
+  const unitList = Object.keys(calculation)
   let row = document.createElement('tr')
   let head = document.createElement('tr')
-  unitList.unshift("Symbol")
-  unitList.unshift("Unit")
+
   unitList.forEach((unit) => {
     let header = document.createElement('th')
     header.innerHTML = unit
@@ -28,7 +30,10 @@ button.addEventListener('click', (e) => {
   table.appendChild(row)
 
   //Generates flowrate conversion in second tab
-  const flowrate = new Converter(unitOptions.value, quantity.value, time.value)
+  flowrateTableHead.innerHTML = ''
+  tableFlow.innerHTML = ''
+  const flowrate = conversion.calculate_rates(timeUnits.value)
+  console.log(flowrate)
   unitList.forEach((unit) => {
     let header = document.createElement('th')
     header.innerHTML = `${unit}/${timeUnits.value}`

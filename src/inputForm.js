@@ -8,7 +8,7 @@ const dictionary = {
   'Cubic Centimetre': Cubic_Centimetre,
   'Cubic Metre': Cubic_Metre
 }
-const timeRates = ['second', 'minute', 'hour', 'day']
+const timeRates = ['sec', 'min', 'hr', 'day']
 
 window.addEventListener('load', (e) => {
   const unitList = Object.keys(dictionary)

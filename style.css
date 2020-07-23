@@ -1,0 +1,26 @@
+#banner {
+  display: block;
+  position: relative;
+  background: rgba(0,0,0,0);
+}
+
+#banner::after {
+  content: "";
+  background: url('src/images/blue-water-1198898.jpg');
+  opacity: 0.92;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+.title {
+  text-shadow: 3px 3px #000000;
+  font-size: 4em;
+}
+
+.subtitle {
+  text-shadow: 1.5px 1.5px #000000;
+}

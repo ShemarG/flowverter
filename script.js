@@ -2,6 +2,7 @@ class Litre {
   constructor(input) {
     this.name = 'Litre'
     this.sym = 'L'
+    this["Litre"] = input
     this["Imperial Gallon"] = input/4.546
     this["Cubic Inch"] = input*61.024
     this["Cubic Foot"] = input/28.317
@@ -14,6 +15,7 @@ class Imperial_Gallon {
     constructor(input) {
       this.name = 'Imperial Gallon'
       this.sym = 'imp gal'
+      this["Imperial Gallon"] = input
       this["Cubic Inch"] = input*277
       this["Cubic Foot"] = input/6.229
       this["Cubic Centimetre"] = input*4546
@@ -26,6 +28,7 @@ class Cubic_Inch {
     constructor(input) {
       this.name = 'Cubic Inch'
       this.sym = 'in\u00B3'
+      this["Cubic Inch"] = input
       this["Cubic Foot"] = input/1728
       this["Cubic Centimetre"] = input*16.387
       this["Cubic Metre"] = input/61024
@@ -38,6 +41,7 @@ class Cubic_Foot {
   constructor(input) {
     this.name = 'Cubic Foot'
     this.sym = 'ft\u00B3'
+    this["Cubic Foot"] = input
     this["Cubic Centimetre"] = input*28317
     this["Cubic Metre"] = input/35.315
     this["Litre"] = input*28.317
@@ -50,6 +54,7 @@ class Cubic_Metre {
   constructor(input){
     this.name = 'Cubic Metre'
     this.sym = 'm\u00B3'
+    this["Cubic Metre"] = input
     this["Imperial Gallon"] = input*220
     this["Cubic Inch"] = input*61024
     this["Cubic Foot"] = input*35.315
@@ -62,6 +67,7 @@ class Cubic_Centimetre {
   constructor(input){
     this.name = 'Cubic Centimetre'
     this.sym = 'cm\u00B3'
+    this["Cubic Centimetre"] = input
     this["Cubic Metre"] = input/(1*(10^6))
     this["Imperial Gallon"] = input/4546
     this["Litre"] = input/1000
@@ -115,7 +121,8 @@ class Converter {
   }
 
   // raw_obj accepts output of calculate_conversion()
-  calculate_rates(raw_obj, time_unit) {
+  calculate_rates(time_unit) {
+    let raw_obj = this.calculate_conversion()
     let {name, sym, ...conversion} = raw_obj
     let time_table = {[this.unit]:{}}
     for (let unit in conversion){
@@ -129,28 +136,32 @@ class Converter {
   }
 
   // rates accepts output of calculate_rates()
-  calculate_volume_elapsed(rates, time, time_unit) {
+  calculate_volume_elapsed(time, time_unit) {
+    let total_time = time.day*86400 + time.hr*3600 + time.min*60 +time.sec
+    let rates = this.calculate_rates(time_unit)
     let volume_table = {}
     for (let unit in rates){
-      volume_table[unit] = rates[unit][time_unit] * time
+      volume_table[unit] = rates[unit]['sec'] * total_time
     }
     return volume_table
   }
 
   // rates accepts output of calculate_rates()
-  calculate_time_required(rates, quantity, quantity_unit){
+  calculate_time_required(quantity, quantity_unit, time_unit){
+    let rates = this.calculate_rates(time_unit)
     let raw_seconds = quantity / rates[quantity_unit]['sec']
-    let hours = Math.floor(raw_seconds / 3600)
+    let days = Math.floor(raw_seconds/86400)
+    raw_seconds = raw_seconds-days*86400
+    let hours = Math.floor(raw_seconds/3600)
     raw_seconds = raw_seconds-hours*3600
-    let minutes = Math.floor(raw_seconds / 60)
+    let minutes = Math.floor(raw_seconds/60)
     raw_seconds = raw_seconds-minutes*60
-    return {hours: hours, minutes: minutes, seconds: raw_seconds}
+    return {days:days, hours: hours, minutes: minutes, seconds: raw_seconds}
   }
 }
 
-// let foo = new Converter('Litre', 1)
-// let bar = foo.calculate_conversion()
-// let car = foo.calculate_rates(bar, 'sec')
-// console.log(car)
-// console.log(foo.calculate_volume_elapsed(car, 2.5 ,'sec'))
-// console.log(foo.calculate_time_required(car, 400, 'Imperial Gallon'))
+let foo = new Converter('Litre', 78)
+let car = foo.calculate_rates('sec')
+console.log(car)
+console.log(foo.calculate_volume_elapsed({day:6, hour:7, minute:1, second:30},'min'))
+console.log(foo.calculate_time_required(706797, 'Litre', 'min'))
