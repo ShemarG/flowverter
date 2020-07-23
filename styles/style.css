@@ -6,7 +6,7 @@
 
 #banner::after {
   content: "";
-  background: url('src/images/blue-water-1198898.jpg');
+  background: url('../src/images/blue-water-1198898.jpg');
   opacity: 0.92;
   top: 0;
   left: 0;
@@ -14,6 +14,7 @@
   right: 0;
   position: absolute;
   z-index: -1;
+
 }
 
 .title {
@@ -23,4 +24,14 @@
 
 .subtitle {
   text-shadow: 1.5px 1.5px #000000;
+}
+
+.section{
+  display: flex;
+  justify-content: center;
+}
+
+#input-area{
+  display: flex;
+  justify-content: center;
 }

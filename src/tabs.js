@@ -13,7 +13,7 @@ conversionTab.addEventListener('click', (e) => {
   conversionTab.classList.add("is-active")
   flowrateTab.classList.remove("is-active")
   volumeElapsedTab.classList.remove("is-active")
-  conversionSection.style.display = "block"
+  conversionSection.style.display = "flex"
   flowrateSection.style.display = "none"
   // volumeElapsedTab.style.display = none
 
@@ -23,7 +23,7 @@ flowrateTab.addEventListener('click', (e) => {
   flowrateTab.classList.add("is-active")
   conversionTab.classList.remove("is-active")
   volumeElapsedTab.classList.remove("is-active")
-  flowrateSection.style.display = "block"
+  flowrateSection.style.display = "flex"
   conversionSection.style.display = "none"
   //volumeElapsedTab.style.display = none
 })
@@ -32,6 +32,6 @@ volumeElapsedTab.addEventListener('click', (e) => {
   volumeElapsedTab.classList.add("is-active")
   conversionTab.classList.remove("is-active")
   flowrateTab.classList.remove("is-active")
-  conversionSection.style.display = "none"
+  conversionSection.style.display = "flex"
   flowrateSection.style.display = "none"
 })
