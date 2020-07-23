@@ -70,9 +70,32 @@ class Cubic_Centimetre {
   }
 }
 
-<<<<<<< HEAD
 let time_dict = {
-=======
+  'sec':{
+    sec: 1,
+    min: 60,
+    hr: 3600,
+    day: 86400
+  },
+  'min': {
+    sec: (1/60),
+    min: 1,
+    hr: 60,
+    day: 1440
+  },
+  'hr': {
+    sec: (1/3600),
+    min: (1/60),
+    hr: 1,
+    day: 24
+  },
+  'day': {
+    sec: (1/86400),
+    min: (1/1440),
+    hr: (1/24),
+    day: 1
+  }
+}
 class Converter {
   constructor(unit, quantity){
     this.unit = unit,
@@ -83,8 +106,6 @@ class Converter {
     this['Cubic Foot'] = Cubic_Foot,
     this['Cubic Centimetre'] = Cubic_Centimetre,
     this['Cubic Metre'] = Cubic_Metre
-
-
   }
 
   calculate_conversion() {
@@ -97,33 +118,6 @@ class Converter {
     let time_table = {
       name,
       sym,
-    }
-    let time_dict = {
->>>>>>> b34ea11f654f354198a3bba676cf46191ba75942
-      'sec':{
-        sec: 1,
-        min: 60,
-        hr: 3600,
-        day: 86400
-      },
-      'min': {
-        sec: (1/60),
-        min: 1,
-        hr: 60,
-        day: 1440
-      },
-      'hr': {
-        sec: (1/3600),
-        min: (1/60),
-        hr: 1,
-        day: 24
-      },
-      'day': {
-        sec: (1/86400),
-        min: (1/1440),
-        hr: (1/24),
-        day: 1
-      }
     }
 
 class Converter {
@@ -167,7 +161,7 @@ class Converter {
   }
 }
 
-let foo = new Converter('Litre', 30)
-let bar = foo.calculate_conversion()
-console.log(foo.calculate_rates(bar, 'min'))
-console.log(foo.calculate_volume_elapsed(4, 'hr', 180, 'sec'))
+// let foo = new Converter('Litre', 30)
+// let bar = foo.calculate_conversion()
+// console.log(foo.calculate_rates(bar, 'min'))
+// console.log(foo.calculate_volume_elapsed(4, 'hr', 180, 'sec'))
