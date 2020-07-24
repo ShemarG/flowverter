@@ -20,29 +20,46 @@ button.addEventListener('click', (e) => {
   // Generates regular conversion in first tab
   const conversion = new Converter(unitOptions.value, quantity.value)
   const calculation = conversion.calculate_conversion()
+  let inputAmount = calculation[calculation.name]
+  calculation[calculation.name] = '-'
+  console.log(calculation)
   const unitList = Object.keys(calculation)
-  let table = document.createElement('table')
-  table.classList.add("table")
-  table.classList.add("is-bordered")
-  table.classList.add("is-striped")
-  table.classList.add("is-hoverable")
-  let thead = document.createElement('thead')
+  let table = document.getElementById('conversion-table')
   let row = document.createElement('tr')
-  let head = document.createElement('tr')
-
-  unitList.forEach((unit) => {
-    let header = document.createElement('th')
-    header.innerHTML = unit
-    thead.appendChild(header)
+  let payload = [
+    calculation.name,
+    inputAmount,
+    calculation['Imperial Gallon'],
+    calculation['Litre'],
+    calculation['Cubic Metre'],
+    calculation['Cubic Centimetre'],
+    calculation['Cubic Foot'],
+    calculation['Cubic Inch']
+  ]
+  payload.forEach((item) => {
+    let cell = document.createElement('td')
+    cell.innerHTML = item
+    row.appendChild(cell)
   })
-  for (property of Object.values(calculation)){
-    let data = document.createElement('td')
-    data.innerHTML = property
-    row.appendChild(data)
-  }
-  table.appendChild(thead)
   table.appendChild(row)
-  tableArea.appendChild(table)
+
+  // let thead = document.createElement('thead')
+  // let row = document.createElement('tr')
+  // let head = document.createElement('tr')
+  //
+  // unitList.forEach((unit) => {
+  //   let header = document.createElement('th')
+  //   header.innerHTML = unit
+  //   thead.appendChild(header)
+  // })
+  // for (property of Object.values(calculation)){
+  //   let data = document.createElement('td')
+  //   data.innerHTML = property
+  //   row.appendChild(data)
+  // }
+  // table.appendChild(thead)
+  // table.appendChild(row)
+  // tableArea.appendChild(table)
 
   let rates = conversion.calculate_rates(timeUnits.value)
   table_pop(rates)
