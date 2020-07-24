@@ -6,6 +6,15 @@ const flowrateTableHead = document.getElementById('flowrate-head')
 const button = document.getElementById('calculate')
 const tableArea = document.getElementById('table-area')
 
+let table_pop = (data) => {
+  for (let key in data){
+    for (let time in data[key]){
+      // console.log(d)
+      let cell = document.querySelector(`[data-column="${table_dict.columns[time]}"][data-row="${key}"]`)
+      cell.innerHTML = data[key][time]
+    }
+  }
+}
 
 button.addEventListener('click', (e) => {
   // Generates regular conversion in first tab
@@ -36,6 +45,7 @@ button.addEventListener('click', (e) => {
   tableArea.appendChild(table)
 
   let rates = conversion.calculate_rates(timeUnits.value)
+  table_pop(rates)
 })
 
 const tableGenerator = (params, table) => {
@@ -72,17 +82,3 @@ rows: ['Imperial Gallon', 'Litre', 'Cubic Metre', 'Cubic Centimetre', 'Cubic Foo
 
 let rates_table = document.getElementById('rates_table')
 tableGenerator(input, rates_table)
-
-console.log(car)
-
-let table_pop = (data) => {
-  for (let key in data){
-    for (let time in data[key]){
-      // console.log(d)
-      let cell = document.querySelector(`[data-column="${table_dict.columns[time]}"][data-row="${key}"]`)
-      cell.innerHTML = data[key][time]
-    }
-  }
-}
-
-table_pop(car)
