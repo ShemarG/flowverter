@@ -36,16 +36,53 @@ button.addEventListener('click', (e) => {
   tableArea.appendChild(table)
 
   let rates = conversion.calculate_rates(timeUnits.value)
-  let table_pop = (data) => {
+})
+
+const tableGenerator = (params, table) => {
+let column_header_row = document.createElement('tr')
+column_header_row.appendChild(document.createElement('td'))
+params.columns.forEach((col_title) => {
+  let col_header = document.createElement('th')
+  col_header.innerHTML = col_title
+  column_header_row.appendChild(col_header)
+})
+table.appendChild(column_header_row)
+params.rows.forEach((row_title, index) => {
+  let row = document.createElement('tr')
+  let row_header = document.createElement('th')
+  row_header.innerHTML = row_title
+  row.appendChild(row_header)
+  params.columns.forEach((title) => {
+    let cell = document.createElement('td')
+    cell.setAttribute('data-column', title)
+    cell.setAttribute('data-row', row_title)
+    row.appendChild(cell)
+  })
+
+  table.appendChild(row)
+})
+}
+
+const table_dict = {columns: {sec: 'per second', min: 'per minute', hr: 'per hour', day: 'per day'}}
+
+let input = {
+columns: ['per second', 'per minute', 'per hour', 'per day'],
+rows: ['Imperial Gallon', 'Litre', 'Cubic Metre', 'Cubic Centimetre', 'Cubic Foot', 'Cubic Inch']
+}
+
+let rates_table = document.getElementById('rates_table')
+tableGenerator(input, rates_table)
+
+console.log(car)
+
+let table_pop = (data) => {
   for (let key in data){
-    let row = document.getElementById(key)
     for (let time in data[key]){
-      let cell = row.insertCell(-1)
+      // console.log(d)
+      let cell = document.querySelector(`[data-column="${table_dict.columns[time]}"][data-row="${key}"]`)
       cell.innerHTML = data[key][time]
-      }
     }
   }
+}
 
-  table_pop(rates)
-
-})
+table_pop(car)
