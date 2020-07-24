@@ -9,7 +9,6 @@ const tableArea = document.getElementById('table-area')
 let table_pop = (data) => {
   for (let key in data){
     for (let time in data[key]){
-      // console.log(d)
       let cell = document.querySelector(`[data-column="${table_dict.columns[time]}"][data-row="${key}"]`)
       cell.innerHTML = data[key][time]
     }
@@ -66,35 +65,34 @@ button.addEventListener('click', (e) => {
 })
 
 const tableGenerator = (params, table) => {
-let column_header_row = document.createElement('tr')
-column_header_row.appendChild(document.createElement('td'))
-params.columns.forEach((col_title) => {
-  let col_header = document.createElement('th')
-  col_header.innerHTML = col_title
-  column_header_row.appendChild(col_header)
-})
-table.appendChild(column_header_row)
-params.rows.forEach((row_title, index) => {
-  let row = document.createElement('tr')
-  let row_header = document.createElement('th')
-  row_header.innerHTML = row_title
-  row.appendChild(row_header)
-  params.columns.forEach((title) => {
-    let cell = document.createElement('td')
-    cell.setAttribute('data-column', title)
-    cell.setAttribute('data-row', row_title)
-    row.appendChild(cell)
+  let column_header_row = document.createElement('tr')
+  column_header_row.appendChild(document.createElement('td'))
+  params.columns.forEach((col_title) => {
+    let col_header = document.createElement('th')
+    col_header.innerHTML = col_title
+    column_header_row.appendChild(col_header)
   })
-
-  table.appendChild(row)
-})
+  table.appendChild(column_header_row)
+  params.rows.forEach((row_title, index) => {
+    let row = document.createElement('tr')
+    let row_header = document.createElement('th')
+    row_header.innerHTML = row_title
+    row.appendChild(row_header)
+    params.columns.forEach((title) => {
+      let cell = document.createElement('td')
+      cell.setAttribute('data-column', title)
+      cell.setAttribute('data-row', row_title)
+      row.appendChild(cell)
+    })
+    table.appendChild(row)
+  })
 }
 
 const table_dict = {columns: {sec: 'per second', min: 'per minute', hr: 'per hour', day: 'per day'}}
 
 let input = {
-columns: ['per second', 'per minute', 'per hour', 'per day'],
-rows: ['Imperial Gallon', 'Litre', 'Cubic Metre', 'Cubic Centimetre', 'Cubic Foot', 'Cubic Inch']
+  columns: ['per second', 'per minute', 'per hour', 'per day'],
+  rows: ['Imperial Gallon', 'Litre', 'Cubic Metre', 'Cubic Centimetre', 'Cubic Foot', 'Cubic Inch']
 }
 
 let rates_table = document.getElementById('rates_table')

@@ -21,13 +21,13 @@
       <div class="field has-addons">
         <p class="control">
           <span class="select">
-            <select id="unitOptions">
+            <select class="unitOptions">
             </select>
           </span>
         </p>
         <p class="control">
           <span class="select">
-            <select id="time-units">
+            <select class="time-units">
             </select>
           </span>
         </p>
@@ -57,9 +57,9 @@
             <span>Flowrate</span>
           </a>
         </li>
-        <li id="volume-elapsed">
+        <li id="volume-duration">
           <a>
-            <span>Volume Elapsed</span>
+            <span>Volume & Duration</span>
           </a>
         </li>
       </ul>
@@ -84,6 +84,44 @@
     <section class="section" id="flowrate-tab">
       <div class="table-container">
         <table id="rates_table" class="table is-bordered is-striped is-hoverable"></table>
+      </div>
+    </section>
+    <section class="section" id="volume-duration-tab">
+      <div class="volumeElapsed">
+        <div class="volumeElapsedContainer">
+          <span class="title">Volume Discharge</span>
+          <div class="volumeRateInputContainer">
+            <span class="mr-3">Rate:</span>
+            <input class="input mr-3" id="volumeRateInput">
+            <span class="mr-3">per</span>
+            <span class="select"><select class="time-units"></select></span>
+          </div>
+          <div class="timeInputsContainer mt-3">
+            <span class="timeInputSpan mr-3">Day(s)<input class="timeInput input" id="day"></span>
+            <span class="timeInputSpan mr-3">Hour(s)<input class="timeInput input"  id="hr"></span>
+            <span class="timeInputSpan mr-3">Minute(s)<input class="timeInput input"  id="min"></span>
+            <span class="timeInputSpan">Second(s)<input class="timeInput input" id="sec"></span>
+          </div>
+          <div class="resultDisplay mt-3"></div>
+        </div>
+      </div>
+      <div class="timeElapsed mt-6">
+        <div class="timeElapsedContainer">
+          <span class="title">Time Elapsed</span>
+          <div class="timeRateInputContainer">
+            <input class="input timeElapsedInput mr-3" id="timeVolumeInput" placeholder="Volume">
+            <span class="mr-3">at</span>
+            <input class="input timeElapsedInput mr-3" id="timeRateInput" placeholder="Rate">
+            <span class="select mr-3">
+              <select class="unitOptions mr-3"></select>
+            </span>
+            <span class="mr-3">per</span>
+            <span class="select">
+              <select class="time-units"></select>
+            </span>
+          </div>
+          <div class="resultDisplay mt-3"></div>
+        </div>
       </div>
     </section>
 

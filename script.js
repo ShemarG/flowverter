@@ -58,7 +58,7 @@ class Cubic_Metre {
     this["Imperial Gallon"] = input*220
     this["Cubic Inch"] = input*61024
     this["Cubic Foot"] = input*35.315
-    this["Cubic Centimetre"] = input*(1*(10^6))
+    this["Cubic Centimetre"] = input*(Math.pow(10,6))
     this["Litre"] = input*1000
   }
 }
@@ -68,7 +68,7 @@ class Cubic_Centimetre {
     this.name = 'Cubic Centimetre'
     this.sym = 'cm\u00B3'
     this["Cubic Centimetre"] = input
-    this["Cubic Metre"] = input/(1*(10^6))
+    this["Cubic Metre"] = input/(Math.pow(10,6))
     this["Imperial Gallon"] = input/4546
     this["Litre"] = input/1000
     this["Cubic Inch"] = input/16.387
@@ -163,5 +163,5 @@ class Converter {
 let foo = new Converter('Litre', 78)
 let car = foo.calculate_rates('sec')
 console.log(car)
-console.log(foo.calculate_volume_elapsed({day:6, hour:7, minute:1, second:30},'min'))
+console.log(foo.calculate_volume_elapsed({day:6, hr:7, min:1, sec:30},'min'))
 console.log(foo.calculate_time_required(706797, 'Litre', 'min'))
