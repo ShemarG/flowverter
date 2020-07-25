@@ -17,33 +17,6 @@
           </h2>
         </div>
       </div>
-      <div id="input-area">
-      <div class="field has-addons">
-        <p class="control">
-          <span class="select">
-            <select class="unitOptions">
-            </select>
-          </span>
-        </p>
-        <p class="control">
-          <span class="select">
-            <select class="time-units">
-            </select>
-          </span>
-        </p>
-        <p class="control">
-          <input class="input" id="quantity" type="text" placeholder="Quantity">
-        </p>
-        <p class="control">
-          <input class="input" id="time" type="text" placeholder="Time">
-        </p>
-        <p class="control" id="calculate">
-          <a class="button">
-            Calculate
-          </a>
-        </p>
-      </div>
-    </div>
     </section>
     <div class="tabs is-toggle is-fullwidth">
       <ul>
@@ -64,9 +37,23 @@
         </li>
       </ul>
     </div>
-
     <section class="section" id="conversion-tab">
-      <div class="table-container" id="table-area">
+      <div class="input-area">
+        <div class="field has-addons">
+          <p class="control">
+            <span class="select">
+              <select id="conversionUnit" class="unitOptions"></select>
+            </span>
+          </p>
+          <p class="control">
+            <input class="input" id="conversionQuantity" type="text" placeholder="Quantity">
+          </p>
+          <p class="control" id="conversionButton">
+            <a class="button">Calculate</a>
+          </p>
+        </div>
+      </div>
+      <div class="mt-6 table-container table-area">
         <table id="conversion-table" class="table is-bordered is-striped is-hoverable">
           <tr>
             <th>Converted from</th>
@@ -82,7 +69,28 @@
       </div>
     </section>
     <section class="section" id="flowrate-tab">
-      <div class="table-container">
+      <div class="input-area">
+        <div class="field has-addons" style="display:flex; justify-content:center; align-items:center">
+          <p class="control">
+            <input class="input" id="flowrateQuantity" type="text" placeholder="Quantity">
+          </p>
+          <p class="control mr-3">
+            <span class="select">
+              <select id="flowrateUnit" class="unitOptions"></select>
+            </span>
+          </p>
+          <span class="mr-3">per</span>
+          <p class="control">
+            <span class="select">
+              <select id="flowrateTimeUnit" class="time-units"></select>
+            </span>
+          </p>
+          <p class="control" id="flowrateButton">
+            <a class="button">Calculate</a>
+          </p>
+        </div>
+      </div>
+      <div class="table-container mt-6">
         <table id="rates_table" class="table is-bordered is-striped is-hoverable"></table>
       </div>
     </section>
@@ -91,18 +99,25 @@
         <div class="volumeElapsedContainer">
           <span class="title">Volume Discharge</span>
           <div class="volumeRateInputContainer">
-            <span class="mr-3">Rate:</span>
-            <input class="input mr-3" id="volumeRateInput">
+            <input class="input mr-3" id="volumeRateQuantity" placeholder="Rate">
+            <p class="control mr-3">
+              <span class="select">
+                <select id="volumeRateUnit" class="unitOptions"></select>
+              </span>
+            </p>
             <span class="mr-3">per</span>
-            <span class="select"><select class="time-units"></select></span>
+            <span class="select"><select id="volumeRateTimeUnit" class="time-units"></select></span>
           </div>
           <div class="timeInputsContainer mt-3">
             <span class="timeInputSpan mr-3">Day(s)<input class="timeInput input" id="day"></span>
             <span class="timeInputSpan mr-3">Hour(s)<input class="timeInput input"  id="hr"></span>
             <span class="timeInputSpan mr-3">Minute(s)<input class="timeInput input"  id="min"></span>
-            <span class="timeInputSpan">Second(s)<input class="timeInput input" id="sec"></span>
+            <span class="timeInputSpan mr-3">Second(s)<input class="timeInput input" id="sec"></span>
+            <p class="control" id="volumeButton">
+              <a class="button">Calculate</a>
+            </p>
           </div>
-          <div class="resultDisplay mt-3"></div>
+          <div id="volumeResultsDisplay" class="resultDisplay mt-3"></div>
         </div>
       </div>
       <div class="timeElapsed mt-6">

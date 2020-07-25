@@ -20,6 +20,11 @@
   flex-direction: column;
 }
 
+.table-container {
+  display: flex;
+  justify-content: center;
+}
+
 .title {
   text-shadow: 3px 3px #000000;
   font-size: 4em;
@@ -34,9 +39,10 @@
   justify-content: center;
 }
 
-#input-area{
+.input-area{
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .volumeElapsed {
@@ -73,7 +79,7 @@
 .timeInputsContainer {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
 }
 
 .volumeElapsedContainer {
@@ -101,11 +107,14 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 100%;
 }
 
 .resultDisplay {
   border: 1px solid black;
   height: 3em;
   width: 70%;
+}
+
+.tableArea {
+  width: 50%;
 }
