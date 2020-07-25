@@ -125,18 +125,24 @@
         <div class="timeElapsedContainer">
           <span class="title">Time Elapsed</span>
           <div class="timeRateInputContainer">
-            <input class="input timeElapsedInput mr-3" id="timeVolumeInput" placeholder="Volume">
+            <input class="input timeElapsedInput mr-3" id="timeVolumeQuantity" placeholder="Volume">
+            <span class="select">
+              <select id="timeVolumeUnit" class="unitOptions mr-3"></select>
+            </span>
             <span class="mr-3">at</span>
-            <input class="input timeElapsedInput mr-3" id="timeRateInput" placeholder="Rate">
-            <span class="select mr-3">
-              <select class="unitOptions mr-3"></select>
+            <input class="input timeElapsedInput mr-3" id="timeRateQuantity" placeholder="Rate">
+            <span class="select">
+              <select id="timeRateUnit" class="unitOptions mr-3"></select>
             </span>
             <span class="mr-3">per</span>
             <span class="select">
-              <select class="time-units"></select>
+              <select id="timeRateTimeUnit" class="time-units"></select>
             </span>
           </div>
-          <div class="resultDisplay mt-3"></div>
+          <p class="control mt-3" id="timeButton">
+            <a class="button">Calculate</a>
+          </p>
+          <div id="timeResultsDisplay" class="resultDisplay mt-3"></div>
         </div>
       </div>
     </section>

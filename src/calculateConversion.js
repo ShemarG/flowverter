@@ -15,8 +15,15 @@ const volumeRateUnit = document.getElementById('volumeRateUnit')
 const volumeRateTimeUnit = document.getElementById('volumeRateTimeUnit')
 const volumeButton = document.getElementById('volumeButton')
 const volumeResultsDisplay = document.getElementById('volumeResultsDisplay')
+const timeVolumeQuantity = document.getElementById('timeVolumeQuantity')
+const timeVolumeUnit = document.getElementById('timeVolumeUnit')
+const timeRateQuantity = document.getElementById('timeRateQuantity')
+const timeRateUnit = document.getElementById('timeRateUnit')
+const timeRateTimeUnit = document.getElementById('timeRateTimeUnit')
+const timeButton = document.getElementById('timeButton')
+const timeResultsDisplay = document.getElementById('timeResultsDisplay')
 
-
+// Generates the flow rate table
 const tableGenerator = (params, table) => {
   let column_header_row = document.createElement('tr')
   column_header_row.appendChild(document.createElement('td'))
@@ -41,6 +48,7 @@ const tableGenerator = (params, table) => {
   })
 }
 
+// Inputs and dictionaries for the table generator
 const table_dict = {columns: {sec: 'per second', min: 'per minute', hr: 'per hour', day: 'per day'}}
 let input = {
   columns: ['per second', 'per minute', 'per hour', 'per day'],
@@ -49,6 +57,7 @@ let input = {
 let rates_table = document.getElementById('rates_table')
 tableGenerator(input, rates_table)
 
+// Populates table with data
 let table_pop = (data) => {
   for (let key in data){
     for (let time in data[key]){
@@ -133,4 +142,9 @@ volumeButton.addEventListener('click', (e) => {
   const conversion = new Converter(volumeRateUnit.value, volumeRateQuantity.value)
   let volumes = conversion.calculate_volume_elapsed(volumeTime, volumeRateTimeUnit.value)
   volumeResultsDisplay.innerHTML = volumes
+})
+
+timeButton.addEventListener('click', (e) => {
+  const conversion = new Converter(timeRateUnit.value, timeRateQuantity.value)
+  let time_required = conversion.calculate_time_required(timeVolumeQuantity.value, timeVolumeUnit.value, timeRateTimeUnit.value)
 })
