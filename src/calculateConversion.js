@@ -66,7 +66,7 @@ let table_pop = (data) => {
 
 conversionButton.addEventListener('click', (e) => {
   // Generates regular conversion in first tab
-  const conversion = new Converter(conversionUnit.value, quantity.value)
+  const conversion = new Converter(conversionUnit.value, conversionQuantity.value)
   const calculation = conversion.calculate_conversion()
   let inputAmount = calculation[calculation.name]
   calculation[calculation.name] = '-'
