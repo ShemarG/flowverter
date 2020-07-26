@@ -9,12 +9,14 @@ const flowrateUnit = document.getElementById('flowrateUnit')
 const flowrateTimeUnit = document.getElementById('flowrateTimeUnit')
 const flowrateButton = document.getElementById('flowrateButton')
 
-// Volume & Discharge Elements
+// Volume Elements
 const volumeRateQuantity = document.getElementById('volumeRateQuantity')
 const volumeRateUnit = document.getElementById('volumeRateUnit')
 const volumeRateTimeUnit = document.getElementById('volumeRateTimeUnit')
 const volumeButton = document.getElementById('volumeButton')
 const volumeResultsDisplay = document.getElementById('volumeResultsDisplay')
+
+// Time Elements
 const timeVolumeQuantity = document.getElementById('timeVolumeQuantity')
 const timeVolumeUnit = document.getElementById('timeVolumeUnit')
 const timeRateQuantity = document.getElementById('timeRateQuantity')
@@ -22,6 +24,12 @@ const timeRateUnit = document.getElementById('timeRateUnit')
 const timeRateTimeUnit = document.getElementById('timeRateTimeUnit')
 const timeButton = document.getElementById('timeButton')
 const timeResultsDisplay = document.getElementById('timeResultsDisplay')
+const day = document.getElementById('day')
+const hr = document.getElementById('hr')
+const min = document.getElementById('min')
+const sec = document.getElementById('sec')
+
+let row_counter = 0
 
 // Generates the flow rate table
 const tableGenerator = (params, table) => {
@@ -63,7 +71,7 @@ let table_pop = (data) => {
     for (let time in data[key]){
       let cell = document.querySelector(`[data-column="${table_dict.columns[time]}"][data-row="${key}"]`)
       if (data[key][time] <= 0.0001 || data[key][time] > Math.pow(10, 9)) {
-        let itemExponent = data[key][time].toExponential(3)
+        let itemExponent = parseFloat(data[key][time]).toExponential(3)
         let arr = itemExponent.split('e')
         cell.innerHTML = `${arr[0]} \u2715 10${arr[1].sup()}`
       } else {
@@ -73,39 +81,60 @@ let table_pop = (data) => {
   }
 }
 
+let input_validator = (fields) => {
+  let allValid = true
+  fields.forEach((field) => {
+    if (!parseInt(field)){
+      allValid = false
+      return {valid:allValid, invalid:field}
+    }
+  })
+  return {valid:allValid}
+}
+
+
 conversionButton.addEventListener('click', (e) => {
   // Generates regular conversion in first tab
-  const conversion = new Converter(conversionUnit.value, conversionQuantity.value)
-  const calculation = conversion.calculate_conversion()
-  let inputAmount = calculation[calculation.name]
-  calculation[calculation.name] = '-'
-  console.log(calculation)
-  const unitList = Object.keys(calculation)
-  let table = document.getElementById('conversion-table')
-  let row = document.createElement('tr')
-  let payload = [
-    calculation.name,
-    inputAmount,
-    calculation['Imperial Gallon'],
-    calculation['Litre'],
-    calculation['Cubic Metre'],
-    calculation['Cubic Centimetre'],
-    calculation['Cubic Foot'],
-    calculation['Cubic Inch']
-  ]
-  payload.forEach((item) => {
-    let cell = document.createElement('td')
-    if (item <= 0.0001 || item > Math.pow(10, 9)) {
-      let itemExponent = item.toExponential(3)
-      let arr = itemExponent.split('e')
-      cell.innerHTML = `${arr[0]} \u2715 10${arr[1].sup()}`
-    } else {
-      cell.innerHTML = item.toLocaleString()
+  let validInput = input_validator([conversionQuantity.value])
+  if (validInput){
+    const conversion = new Converter(conversionUnit.value, conversionQuantity.value)
+    const calculation = conversion.calculate_conversion()
+    let inputAmount = calculation[calculation.name]
+    calculation[calculation.name] = '-'
+    console.log(calculation)
+    const unitList = Object.keys(calculation)
+    let table = document.getElementById('conversion-table')
+    let row_list = table.children[0].children
+    let row = document.createElement('tr')
+    let header_row = document.getElementById('header-row')
+    let payload = [
+      calculation.name,
+      inputAmount,
+      calculation['Imperial Gallon'],
+      calculation['Litre'],
+      calculation['Cubic Metre'],
+      calculation['Cubic Centimetre'],
+      calculation['Cubic Foot'],
+      calculation['Cubic Inch']
+    ]
+    payload.forEach((item) => {
+      let cell = document.createElement('td')
+      if (item <= 0.0001 || item >= Math.pow(10, 9)) {
+        let itemExponent = parseFloat(item).toExponential(3)
+        let arr = itemExponent.split('e')
+        cell.innerHTML = `${arr[0]} \u2715 10${arr[1].sup()}`
+      } else {
+        cell.innerHTML = item.toLocaleString()
+      }
+      row.appendChild(cell)
+    })
+    if (row_counter > 4){
+      console.log(row_list[row_list.length])
+      row_list[row_list.length-1].remove()
     }
-    row.appendChild(cell)
-  })
-  table.appendChild(row)
-
+    header_row.after(row)
+    row_counter++
+  }
   // let thead = document.createElement('thead')
   // let row = document.createElement('tr')
   // let head = document.createElement('tr')
@@ -123,28 +152,42 @@ conversionButton.addEventListener('click', (e) => {
   // table.appendChild(thead)
   // table.appendChild(row)
   // tableArea.appendChild(table)
-
 })
 
 flowrateButton.addEventListener('click', (e) => {
-  const conversion = new Converter(flowrateUnit.value, flowrateQuantity.value)
-  let rates = conversion.calculate_rates(flowrateTimeUnit.value)
-  table_pop(rates)
+  let validInput = input_validator([flowrateQuantity.value])
+  if (validInput){
+    const conversion = new Converter(flowrateUnit.value, flowrateQuantity.value)
+    let rates = conversion.calculate_rates(flowrateTimeUnit.value)
+    table_pop(rates)
+  }
 })
 
 volumeButton.addEventListener('click', (e) => {
-  const volumeTime = {
-    day:parseInt(document.getElementById('day').value) || 0,
-    hr:parseInt(document.getElementById('hr').value) || 0,
-    min:parseInt(document.getElementById('min').value) || 0,
-    sec:parseInt(document.getElementById('sec').value) || 0
+  let validInput = input_validator([
+    document.getElementById('day').value,
+    document.getElementById('hr').value,
+    document.getElementById('min').value,
+    document.getElementById('sec').value,
+    volumeRateQuantity.value
+  ])
+  if (validInput && (day.value*86400 + hr.value*3600 + min.value*60 +sec.value != 0)){
+    const volumeTime = {
+      day:parseInt(document.getElementById('day').value),
+      hr:parseInt(document.getElementById('hr').value),
+      min:parseInt(document.getElementById('min').value),
+      sec:parseInt(document.getElementById('sec').value)
+    }
+    const conversion = new Converter(volumeRateUnit.value, volumeRateQuantity.value)
+    let volumes = conversion.calculate_volume_elapsed(volumeTime, volumeRateTimeUnit.value)
+    volumeResultsDisplay.innerHTML = volumes
   }
-  const conversion = new Converter(volumeRateUnit.value, volumeRateQuantity.value)
-  let volumes = conversion.calculate_volume_elapsed(volumeTime, volumeRateTimeUnit.value)
-  volumeResultsDisplay.innerHTML = volumes
 })
 
 timeButton.addEventListener('click', (e) => {
-  const conversion = new Converter(timeRateUnit.value, timeRateQuantity.value)
-  let time_required = conversion.calculate_time_required(timeVolumeQuantity.value, timeVolumeUnit.value, timeRateTimeUnit.value)
+  let validInput = input_validator([timeRateQuantity.value, timeVolumeQuantity.value])
+  if (validInput){
+    const conversion = new Converter(timeRateUnit.value, timeRateQuantity.value)
+    let time_required = conversion.calculate_time_required(timeVolumeQuantity.value, timeVolumeUnit.value, timeRateTimeUnit.value)
+  }
 })

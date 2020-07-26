@@ -47,7 +47,7 @@
             </span>
           </p>
           <p class="control">
-            <input class="input" id="conversionQuantity" type="text" placeholder="Quantity">
+            <input class="input" id="conversionQuantity" type="number" placeholder="Quantity">
           </p>
           <p class="control" id="conversionButton">
             <a class="button">Calculate</a>
@@ -56,7 +56,7 @@
       </div>
       <div class="mt-6 table-container table-area">
         <table id="conversion-table" class="table is-bordered is-striped is-hoverable">
-          <tr>
+          <tr id="header-row">
             <th>Converted from</th>
             <th>Quantity</th>
             <th>Imperial Gallon</th>
@@ -73,7 +73,7 @@
       <div class="input-area">
         <div class="field has-addons" style="display:flex; justify-content:center; align-items:center">
           <p class="control">
-            <input class="input" id="flowrateQuantity" type="text" placeholder="Quantity">
+            <input class="input" id="flowrateQuantity" type="number" placeholder="Quantity">
           </p>
           <p class="control mr-3">
             <span class="select">
@@ -100,7 +100,7 @@
         <div class="volumeElapsedContainer">
           <span class="title">Volume Discharge</span>
           <div class="volumeRateInputContainer">
-            <input class="input mr-3" id="volumeRateQuantity" placeholder="Rate">
+            <input class="input mr-3" id="volumeRateQuantity" type="number" placeholder="Rate">
             <p class="control mr-3">
               <span class="select">
                 <select id="volumeRateUnit" class="unitOptions"></select>
@@ -110,10 +110,10 @@
             <span class="select"><select id="volumeRateTimeUnit" class="time-units"></select></span>
           </div>
           <div class="timeInputsContainer mt-3">
-            <span class="timeInputSpan mr-3">Day(s)<input class="timeInput input" id="day"></span>
-            <span class="timeInputSpan mr-3">Hour(s)<input class="timeInput input"  id="hr"></span>
-            <span class="timeInputSpan mr-3">Minute(s)<input class="timeInput input"  id="min"></span>
-            <span class="timeInputSpan mr-3">Second(s)<input class="timeInput input" id="sec"></span>
+            <span class="timeInputSpan mr-3">Day(s)<input class="timeInput input" id="day" type="number" value="0"></span>
+            <span class="timeInputSpan mr-3">Hour(s)<input class="timeInput input"  id="hr" type="number" value="0"></span>
+            <span class="timeInputSpan mr-3">Minute(s)<input class="timeInput input"  id="min" type="number" value="0"></span>
+            <span class="timeInputSpan mr-3">Second(s)<input class="timeInput input" id="sec" type="number" value="0"></span>
             <p class="control" id="volumeButton">
               <a class="button">Calculate</a>
             </p>
@@ -125,12 +125,12 @@
         <div class="timeElapsedContainer">
           <span class="title">Time Elapsed</span>
           <div class="timeRateInputContainer">
-            <input class="input timeElapsedInput mr-3" id="timeVolumeQuantity" placeholder="Volume">
+            <input class="input timeElapsedInput mr-3" id="timeVolumeQuantity" type="number" placeholder="Volume">
             <span class="select">
               <select id="timeVolumeUnit" class="unitOptions mr-3"></select>
             </span>
             <span class="mr-3">at</span>
-            <input class="input timeElapsedInput mr-3" id="timeRateQuantity" placeholder="Rate">
+            <input class="input timeElapsedInput mr-3" id="timeRateQuantity" type="number" placeholder="Rate">
             <span class="select">
               <select id="timeRateUnit" class="unitOptions mr-3"></select>
             </span>
