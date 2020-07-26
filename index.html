@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="styles/style.css">
   </head>
   <body>
-    <section id="banner" class="hero is-medium is-primary is-bold">
+    <section id="banner" class="hero is-small is-primary is-bold">
       <div class="hero-body">
         <div class="container">
           <h1 class="title">
@@ -39,19 +39,33 @@
       </ul>
     </div>
     <section class="section" id="conversion-tab">
-      <p class="control">
-        <span class="select">
-          <select id="conversionUnit" class="unitOptions"></select>
-        </span>
-      </p>
-      <p class="control">
-        <input class="input" id="conversionQuantity" type="text" placeholder="Quantity">
-      </p>
-      <p class="control" id="conversionButton">
-        <a class="button">Calculate</a>
-      </p>
+      <div class="input-area">
+        <div class="field has-addons">
+          <p class="control">
+            <span class="select">
+              <select id="conversionUnit" class="unitOptions"></select>
+            </span>
+          </p>
+          <p class="control">
+            <input class="input" id="conversionQuantity" type="number" placeholder="Quantity">
+          </p>
+          <p class="control" id="conversionButton">
+            <a class="button">Calculate</a>
+          </p>
+        </div>
+      </div>
       <div class="mt-6 table-container table-area">
         <table id="conversion-table" class="table is-bordered is-striped is-hoverable">
+          <tr id="header-row">
+            <th>Converted from</th>
+            <th>Quantity</th>
+            <th>Imperial Gallon</th>
+            <th>Litre</th>
+            <th>Cubic Metre</th>
+            <th>Cubic Centimetre</th>
+            <th>Cubic Foot</th>
+            <th>Cubic Inch</th>
+          </tr>
         </table>
       </div>
     </section>
@@ -59,7 +73,7 @@
       <div class="input-area">
         <div class="field has-addons" style="display:flex; justify-content:center; align-items:center">
           <p class="control">
-            <input class="input" id="flowrateQuantity" type="text" placeholder="Quantity">
+            <input class="input" id="flowrateQuantity" type="number" placeholder="Quantity">
           </p>
           <p class="control mr-3">
             <span class="select">
@@ -86,7 +100,7 @@
         <div class="volumeElapsedContainer">
           <span class="title">Volume Discharge</span>
           <div class="volumeRateInputContainer">
-            <input class="input mr-3" id="volumeRateQuantity" placeholder="Rate">
+            <input class="input mr-3" id="volumeRateQuantity" type="number" placeholder="Rate">
             <p class="control mr-3">
               <span class="select">
                 <select id="volumeRateUnit" class="unitOptions"></select>
@@ -96,10 +110,10 @@
             <span class="select"><select id="volumeRateTimeUnit" class="time-units"></select></span>
           </div>
           <div class="timeInputsContainer mt-3">
-            <span class="timeInputSpan mr-3">Day(s)<input class="timeInput input" id="day"></span>
-            <span class="timeInputSpan mr-3">Hour(s)<input class="timeInput input"  id="hr"></span>
-            <span class="timeInputSpan mr-3">Minute(s)<input class="timeInput input"  id="min"></span>
-            <span class="timeInputSpan mr-3">Second(s)<input class="timeInput input" id="sec"></span>
+            <span class="timeInputSpan mr-3">Day(s)<input class="timeInput input" id="day" type="number" value="0"></span>
+            <span class="timeInputSpan mr-3">Hour(s)<input class="timeInput input"  id="hr" type="number" value="0"></span>
+            <span class="timeInputSpan mr-3">Minute(s)<input class="timeInput input"  id="min" type="number" value="0"></span>
+            <span class="timeInputSpan mr-3">Second(s)<input class="timeInput input" id="sec" type="number" value="0"></span>
             <p class="control" id="volumeButton">
               <a class="button">Calculate</a>
             </p>
@@ -111,18 +125,24 @@
         <div class="timeElapsedContainer">
           <span class="title">Time Elapsed</span>
           <div class="timeRateInputContainer">
-            <input class="input timeElapsedInput mr-3" id="timeVolumeInput" placeholder="Volume">
+            <input class="input timeElapsedInput mr-3" id="timeVolumeQuantity" type="number" placeholder="Volume">
+            <span class="select">
+              <select id="timeVolumeUnit" class="unitOptions mr-3"></select>
+            </span>
             <span class="mr-3">at</span>
-            <input class="input timeElapsedInput mr-3" id="timeRateInput" placeholder="Rate">
-            <span class="select mr-3">
-              <select class="unitOptions mr-3"></select>
+            <input class="input timeElapsedInput mr-3" id="timeRateQuantity" type="number" placeholder="Rate">
+            <span class="select">
+              <select id="timeRateUnit" class="unitOptions mr-3"></select>
             </span>
             <span class="mr-3">per</span>
             <span class="select">
-              <select class="time-units"></select>
+              <select id="timeRateTimeUnit" class="time-units"></select>
             </span>
           </div>
-          <div class="resultDisplay mt-3"></div>
+          <p class="control mt-3" id="timeButton">
+            <a class="button">Calculate</a>
+          </p>
+          <div id="timeResultsDisplay" class="resultDisplay mt-3"></div>
         </div>
       </div>
     </section>
