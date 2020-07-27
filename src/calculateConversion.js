@@ -31,6 +31,11 @@ const sec = document.getElementById('sec')
 
 let row_counter = 0
 
+window.addEventListener('load', (e) => {
+  volumeResultsDisplay.style.display = "none"
+  timeResultsDisplay.style.display = "none"
+})
+
 // Generates the flow rate table
 const tableGenerator = (params, table) => {
   let column_header_row = document.createElement('tr')
@@ -84,7 +89,7 @@ let table_pop = (data) => {
 let input_validator = (fields) => {
   let allValid = true
   fields.forEach((field) => {
-    if (!parseInt(field)){
+    if (parseInt(field) == NaN){
       allValid = false
       return {valid:allValid, invalid:field}
     }
@@ -171,7 +176,9 @@ volumeButton.addEventListener('click', (e) => {
     document.getElementById('sec').value,
     volumeRateQuantity.value
   ])
-  if (validInput.valid && (day.value*86400 + hr.value*3600 + min.value*60 +sec.value != 0)){
+
+  console.log(validInput.valid)
+  if (validInput.valid && (day.value*86400 + hr.value*3600 + min.value*60 +sec.value !== 0)){
     const volumeTime = {
       day:parseInt(document.getElementById('day').value),
       hr:parseInt(document.getElementById('hr').value),
@@ -180,7 +187,21 @@ volumeButton.addEventListener('click', (e) => {
     }
     const conversion = new Converter(volumeRateUnit.value, volumeRateQuantity.value)
     let volumes = conversion.calculate_volume_elapsed(volumeTime, volumeRateTimeUnit.value)
-    volumeResultsDisplay.innerHTML = volumes
+    volumeResultsDisplay.innerHTML = ''
+    volumeResultsDisplay.style.display = "flex"
+    let list = document.createElement('ul')
+    for(key in volumes) {
+      let li = document.createElement('li')
+      if (volumes[key] <= 0.0001 || volumes[key] >= Math.pow(10, 9)) {
+        let itemExponent = parseFloat(volumes[key]).toExponential(3)
+        let arr = itemExponent.split('e')
+        li.innerHTML = `${key}: ${arr[0]} \u2715 10${arr[1].sup()}`
+      } else {
+        li.innerHTML = `${key}: ${volumes[key].toLocaleString()}`
+      }
+      list.appendChild(li)
+    }
+    volumeResultsDisplay.appendChild(list)
   }
 })
 

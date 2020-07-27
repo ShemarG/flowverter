@@ -74,7 +74,11 @@
 }
 
 .resultDisplay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: 1px solid black;
-  height: 3em;
-  width: 70%;
+  height: 15em;
+  padding: 5%;
+  overflow: scroll;
 }
