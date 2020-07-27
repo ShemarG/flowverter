@@ -1,3 +1,8 @@
+body {
+  height: 100vh;
+  width: 100vw;
+}
+
 #banner {
   display: block;
   position: relative;
@@ -14,6 +19,12 @@
   right: 0;
   position: absolute;
   z-index: -1;
+}
+
+.tabs a {
+  width: 100%;
+  padding: 0.5em 0%;
+  font-size: 0.9em;
 }
 
 .section{
@@ -39,81 +50,6 @@
   justify-content: center;
 }
 
-.input-area{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.volumeElapsed {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.timeElapsed {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.timeInputSpan {
-  display: flex;
-  flex-direction: column;
-  width: 10%;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-}
-
-.timeInput {
-  width: 100%;
-  height: 30%;
-  text-align: center;
-}
-
-.timeElapsedInput {
-  width: 15%;
-}
-
-.timeInputsContainer {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-}
-
-.volumeElapsedContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
-.volumeRateInputContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.timeRateInputContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-
-.timeElapsedContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
-.resultDisplay {
-  border: 1px solid black;
-  height: 3em;
-  width: 70%;
-}
 
 .tableArea {
   width: 50%;

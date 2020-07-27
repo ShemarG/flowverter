@@ -1,6 +1,6 @@
 const unitOptions = document.getElementsByClassName('unitOptions')
 const timeUnits = document.getElementsByClassName('time-units')
-const unitsList = ['Litre','Imperial Gallon','Cubic Inch','Cubic Foot','Cubic Centimetre','Cubic Metre']
+const unitsList = ['L','Imp. gal','in\u00B3','ft\u00B3','cm\u00B3','m\u00B3']
 const timeUnitsList = ['sec', 'min', 'hr', 'day']
 
 window.addEventListener('load', (e) => {

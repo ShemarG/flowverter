@@ -96,7 +96,7 @@ let input_validator = (fields) => {
 conversionButton.addEventListener('click', (e) => {
   // Generates regular conversion in first tab
   let validInput = input_validator([conversionQuantity.value])
-  if (validInput){
+  if (validInput.valid){
     const conversion = new Converter(conversionUnit.value, conversionQuantity.value)
     const calculation = conversion.calculate_conversion()
     let inputAmount = calculation[calculation.name]
@@ -156,7 +156,7 @@ conversionButton.addEventListener('click', (e) => {
 
 flowrateButton.addEventListener('click', (e) => {
   let validInput = input_validator([flowrateQuantity.value])
-  if (validInput){
+  if (validInput.valid){
     const conversion = new Converter(flowrateUnit.value, flowrateQuantity.value)
     let rates = conversion.calculate_rates(flowrateTimeUnit.value)
     table_pop(rates)
@@ -171,7 +171,7 @@ volumeButton.addEventListener('click', (e) => {
     document.getElementById('sec').value,
     volumeRateQuantity.value
   ])
-  if (validInput && (day.value*86400 + hr.value*3600 + min.value*60 +sec.value != 0)){
+  if (validInput.valid && (day.value*86400 + hr.value*3600 + min.value*60 +sec.value != 0)){
     const volumeTime = {
       day:parseInt(document.getElementById('day').value),
       hr:parseInt(document.getElementById('hr').value),
@@ -186,7 +186,7 @@ volumeButton.addEventListener('click', (e) => {
 
 timeButton.addEventListener('click', (e) => {
   let validInput = input_validator([timeRateQuantity.value, timeVolumeQuantity.value])
-  if (validInput){
+  if (validInput.valid){
     const conversion = new Converter(timeRateUnit.value, timeRateQuantity.value)
     let time_required = conversion.calculate_time_required(timeVolumeQuantity.value, timeVolumeUnit.value, timeRateTimeUnit.value)
   }

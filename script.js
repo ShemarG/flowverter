@@ -14,7 +14,7 @@ class Litre {
 class Imperial_Gallon {
     constructor(input) {
       this.name = 'Imperial Gallon'
-      this.sym = 'imp gal'
+      this.sym = 'Imp. gal'
       this["Imperial Gallon"] = input
       this["Cubic Inch"] = input*277
       this["Cubic Foot"] = input/6.229
@@ -107,12 +107,12 @@ class Converter {
   constructor(unit, quantity){
     this.unit = unit,
     this.quantity = quantity,
-    this['Litre'] = Litre,
-    this['Imperial Gallon'] = Imperial_Gallon,
-    this['Cubic Inch'] = Cubic_Inch,
-    this['Cubic Foot'] = Cubic_Foot,
-    this['Cubic Centimetre'] = Cubic_Centimetre,
-    this['Cubic Metre'] = Cubic_Metre
+    this['L'] = Litre,
+    this['Imp. gal'] = Imperial_Gallon,
+    this['in\u00B3'] = Cubic_Inch,
+    this['ft\u00B3'] = Cubic_Foot,
+    this['cm\u00B3'] = Cubic_Centimetre,
+    this['m\u00B3'] = Cubic_Metre
   }
 
   calculate_conversion() {
@@ -160,8 +160,8 @@ class Converter {
   }
 }
 
-let foo = new Converter('Litre', 78)
+let foo = new Converter('L', 78)
 let car = foo.calculate_rates('sec')
 console.log(car)
 console.log(foo.calculate_volume_elapsed({day:6, hr:7, min:1, sec:30},'min'))
-console.log(foo.calculate_time_required(706797, 'Litre', 'min'))
+console.log(foo.calculate_time_required(706797, 'L', 'min'))
