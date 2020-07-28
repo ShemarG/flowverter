@@ -79,13 +79,7 @@ let table_pop = (data) => {
   for (let key in data){
     for (let time in data[key]){
       let cell = document.querySelector(`[data-column="${table_dict.columns[time]}"][data-row="${table_dict.rows[key]}"]`)
-      if (data[key][time] <= 0.0001 || data[key][time] > Math.pow(10, 9)) {
-        let itemExponent = parseFloat(data[key][time]).toExponential(3)
-        let arr = itemExponent.split('e')
-        cell.innerHTML = `${arr[0]} \u2715 10${arr[1].sup()}`
-      } else {
-        cell.innerHTML = data[key][time].toLocaleString()
-      }
+      cell.innerHTML = format_number(data[key][time])
     }
   }
 }
@@ -93,75 +87,13 @@ let table_pop = (data) => {
 let input_validator = (fields) => {
   let allValid = true
   fields.forEach((field) => {
-    if (parseInt(field) == NaN || parseInt(field) < 0){
+    if (isNaN(parseInt(field)) || parseInt(field) < 0){
       allValid = false
       return {valid:allValid, invalid:field}
     }
   })
   return {valid:allValid}
 }
-
-
-conversionButton.addEventListener('click', (e) => {
-  // Generates regular conversion in first tab
-  let validInput = input_validator([conversionQuantity.value])
-  if (validInput.valid){
-    const conversion = new Converter(conversionUnit.value, conversionQuantity.value)
-    const calculation = conversion.calculate_conversion()
-    let inputAmount = calculation[calculation.sym]
-    calculation[calculation.sym] = '-'
-    console.log(calculation)
-    const unitList = Object.keys(calculation)
-    let table = document.getElementById('conversion-table')
-    let row_list = table.children[0].children
-    let row = document.createElement('tr')
-    let header_row = document.getElementById('header-row')
-    let payload = [
-      calculation.name,
-      inputAmount,
-      calculation['Imp. gal'],
-      calculation['L'],
-      calculation['m\u00B3'],
-      calculation['cm\u00B3'],
-      calculation['ft\u00B3'],
-      calculation['in\u00B3']
-    ]
-    payload.forEach((item) => {
-      let cell = document.createElement('td')
-      if (item <= 0.0001 || item >= Math.pow(10, 9)) {
-        let itemExponent = parseFloat(item).toExponential(3)
-        let arr = itemExponent.split('e')
-        cell.innerHTML = `${arr[0]} \u2715 10${arr[1].sup()}`
-      } else {
-        cell.innerHTML = item.toLocaleString()
-      }
-      row.appendChild(cell)
-    })
-    if (row_counter > 4){
-      console.log(row_list[row_list.length])
-      row_list[row_list.length-1].remove()
-    }
-    header_row.after(row)
-    row_counter++
-  }
-  // let thead = document.createElement('thead')
-  // let row = document.createElement('tr')
-  // let head = document.createElement('tr')
-  //
-  // unitList.forEach((unit) => {
-  //   let header = document.createElement('th')
-  //   header.innerHTML = unit
-  //   thead.appendChild(header)
-  // })
-  // for (property of Object.values(calculation)){
-  //   let data = document.createElement('td')
-  //   data.innerHTML = property
-  //   row.appendChild(data)
-  // }
-  // table.appendChild(thead)
-  // table.appendChild(row)
-  // tableArea.appendChild(table)
-})
 
 const format_number = (number) => {
   if (number <= 0.0001 || number > Math.pow(10, 9)) {
@@ -195,6 +127,73 @@ const mobile_view = (rates) => {
   })
 
 }
+
+conversionButton.addEventListener('click', (e) => {
+  // Generates regular conversion in first tab
+  let validInput = input_validator([conversionQuantity.value])
+  if (validInput.valid){
+    const conversion = new Converter(conversionUnit.value, conversionQuantity.value)
+    const calculation = conversion.calculate_conversion()
+    let inputAmount = calculation[calculation.sym]
+    calculation[calculation.sym] = '-'
+    console.log(calculation)
+    const unitList = Object.keys(calculation)
+    let table = document.getElementById('conversion-table')
+    let row_list = table.children[0].children
+    let row = document.createElement('tr')
+    let header_row = document.getElementById('header-row')
+    let payload = [
+      calculation.name,
+      inputAmount,
+      calculation['Imp. gal'],
+      calculation['L'],
+      calculation['m\u00B3'],
+      calculation['cm\u00B3'],
+      calculation['ft\u00B3'],
+      calculation['in\u00B3']
+    ]
+    if(window.screen.availWidth < 760){
+      let mobile_payload = [
+        `Converted from: ${calculation.name}`,
+        `Quantity: ${format_number(inputAmount)}`,
+        `Imperial Gallon: ${format_number(calculation['Imp. gal'])}`,
+        `Litre: ${format_number(calculation['L'])}`,
+        `Cubic Metre: ${format_number(calculation['m\u00B3'])}`,
+        `Cubic Centimetre: ${format_number(calculation['cm\u00B3'])}`,
+        `Cubic Foot: ${format_number(calculation['ft\u00B3'])}`,
+        `Cubic Inch: ${format_number(calculation['in\u00B3'])}`
+      ]
+      let containerSpan = document.createElement('span')
+      mobile_payload.forEach((item, index) => {
+        let list_item = document.createElement('p')
+        if (index == 0){
+          list_item.classList.add(`td0`)
+        }
+        list_item.classList.add('fake-td')
+        list_item.innerHTML = item
+        containerSpan.appendChild(list_item)
+      })
+      if (row_counter > 4){
+        let spanList = table.children[0].children
+        console.log(spanList)
+        spanList[spanList.length-1].remove()
+      }
+      header_row.after(containerSpan)
+    } else {
+      payload.forEach((item) => {
+        let cell = document.createElement('td')
+        cell.innerHTML = format_number(item)
+        row.appendChild(cell)
+      })
+      if (row_counter > 4){
+        row_list[row_list.length-1].remove()
+      }
+      header_row.after(row)
+    }
+    row_counter++
+  }
+})
+
 
 flowrateButton.addEventListener('click', (e) => {
   let validInput = input_validator([flowrateQuantity.value])
@@ -232,13 +231,7 @@ volumeButton.addEventListener('click', (e) => {
     let list = document.createElement('ul')
     for(key in volumes) {
       let li = document.createElement('li')
-      if (volumes[key] <= 0.0001 || volumes[key] >= Math.pow(10, 9)) {
-        let itemExponent = parseFloat(volumes[key]).toExponential(3)
-        let arr = itemExponent.split('e')
-        li.innerHTML = `${key}: ${arr[0]} \u2715 10${arr[1].sup()}`
-      } else {
-        li.innerHTML = `${key}: ${volumes[key].toLocaleString()}`
-      }
+      li.innerHTML = `${key}: ${format_number(volumes[key])}`
       list.appendChild(li)
     }
     volumeResultsDisplay.appendChild(list)
@@ -253,10 +246,10 @@ timeButton.addEventListener('click', (e) => {
     timeResultsDisplay.innerHTML = ''
     timeResultsDisplay.style.display = "flex"
     let resultSpan = document.createElement('span')
-    resultSpan.innerHTML = `Day(s): ${time_required.days.toLocaleString()} <br>
-    Hour(s): ${time_required.hours.toLocaleString()} <br>
-    Minute(s): ${time_required.minutes.toLocaleString()} <br>
-    Second(s): ${time_required.seconds.toLocaleString()}`
+    resultSpan.innerHTML = `Days: ${time_required.days.toLocaleString()} <br>
+    Hours: ${time_required.hours.toLocaleString()} <br>
+    Minutes: ${time_required.minutes.toLocaleString()} <br>
+    Seconds: ${time_required.seconds.toLocaleString()}`
     timeResultsDisplay.appendChild(resultSpan)
   }
 

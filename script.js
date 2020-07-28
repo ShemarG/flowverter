@@ -161,6 +161,7 @@ class Converter {
 }
 
 let foo = new Converter('L', 78)
+console.log(foo.calculate_conversion())
 let car = foo.calculate_rates('sec')
 console.log(car)
 console.log(foo.calculate_volume_elapsed({day:6, hr:7, min:1, sec:30},'min'))
