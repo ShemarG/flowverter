@@ -2,12 +2,12 @@ class Litre {
   constructor(input) {
     this.name = 'Litre'
     this.sym = 'L'
-    this["Litre"] = input
-    this["Imperial Gallon"] = input/4.546
-    this["Cubic Inch"] = input*61.024
-    this["Cubic Foot"] = input/28.317
-    this["Cubic Centimetre"] = input*1000
-    this["Cubic Metre"] = input/1000
+    this["L"] = input
+    this["Imp. gal"] = input/4.546
+    this["in\u00B3"] = input*61.024
+    this["ft\u00B3"] = input/28.317
+    this["cm\u00B3"] = input*1000
+    this["m\u00B3"] = input/1000
   }
 }
 
@@ -15,12 +15,12 @@ class Imperial_Gallon {
     constructor(input) {
       this.name = 'Imperial Gallon'
       this.sym = 'Imp. gal'
-      this["Imperial Gallon"] = input
-      this["Cubic Inch"] = input*277
-      this["Cubic Foot"] = input/6.229
-      this["Cubic Centimetre"] = input*4546
-      this["Cubic Metre"] = input/220
-      this["Litre"] = input*4.546
+      this["Imp. gal"] = input
+      this["in\u00B3"] = input*277
+      this["ft\u00B3"] = input/6.229
+      this["cm\u00B3"] = input*4546
+      this["m\u00B3"] = input/220
+      this["L"] = input*4.546
   }
 }
 
@@ -28,12 +28,12 @@ class Cubic_Inch {
     constructor(input) {
       this.name = 'Cubic Inch'
       this.sym = 'in\u00B3'
-      this["Cubic Inch"] = input
-      this["Cubic Foot"] = input/1728
+      this["in\u00B3"] = input
+      this["ft\u00B3"] = input/1728
       this["Cubic Centimetre"] = input*16.387
-      this["Cubic Metre"] = input/61024
-      this["Litre"] = input/61.024
-      this["Imperial Gallon"] = input/277
+      this["m\u00B3"] = input/61024
+      this["L"] = input/61.024
+      this["Imp. gal"] = input/277
   }
 }
 
@@ -41,12 +41,12 @@ class Cubic_Foot {
   constructor(input) {
     this.name = 'Cubic Foot'
     this.sym = 'ft\u00B3'
-    this["Cubic Foot"] = input
-    this["Cubic Centimetre"] = input*28317
-    this["Cubic Metre"] = input/35.315
-    this["Litre"] = input*28.317
-    this["Imperial Gallon"] = input*6.229
-    this["Cubic Inch"] = input*1728
+    this["ft\u00B3"] = input
+    this["cm\u00B3"] = input*28317
+    this["m\u00B3"] = input/35.315
+    this["L"] = input*28.317
+    this["Imp. gal"] = input*6.229
+    this["in\u00B3"] = input*1728
   }
 }
 
@@ -54,12 +54,12 @@ class Cubic_Metre {
   constructor(input){
     this.name = 'Cubic Metre'
     this.sym = 'm\u00B3'
-    this["Cubic Metre"] = input
-    this["Imperial Gallon"] = input*220
-    this["Cubic Inch"] = input*61024
-    this["Cubic Foot"] = input*35.315
-    this["Cubic Centimetre"] = input*(Math.pow(10,6))
-    this["Litre"] = input*1000
+    this["m\u00B3"] = input
+    this["Imp. gal"] = input*220
+    this["in\u00B3"] = input*61024
+    this["ft\u00B3"] = input*35.315
+    this["cm\u00B3"] = input*(Math.pow(10,6))
+    this["L"] = input*1000
   }
 }
 
@@ -67,12 +67,12 @@ class Cubic_Centimetre {
   constructor(input){
     this.name = 'Cubic Centimetre'
     this.sym = 'cm\u00B3'
-    this["Cubic Centimetre"] = input
-    this["Cubic Metre"] = input/(Math.pow(10,6))
-    this["Imperial Gallon"] = input/4546
-    this["Litre"] = input/1000
-    this["Cubic Inch"] = input/16.387
-    this["Cubic Foot"] = input/28317
+    this["cm\u00B3"] = input
+    this["m\u00B3"] = input/(Math.pow(10,6))
+    this["Imp. gal"] = input/4546
+    this["L"] = input/1000
+    this["in\u00B3"] = input/16.387
+    this["ft\u00B3"] = input/28317
   }
 }
 
@@ -164,4 +164,4 @@ let foo = new Converter('L', 78)
 let car = foo.calculate_rates('sec')
 console.log(car)
 console.log(foo.calculate_volume_elapsed({day:6, hr:7, min:1, sec:30},'min'))
-console.log(foo.calculate_time_required(706797, 'L', 'min'))
+console.log(foo.calculate_time_required(706797, 'Imp. gal', 'min'))

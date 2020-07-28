@@ -121,10 +121,10 @@
           <span class="mt-2">per</span>
           <span class="select mt-2"><select id="volumeRateTimeUnit" class="time-units"></select></span>
           <div class="timeInputsContainer mt-2">
-            <span class="timeInputSpan mr-3">Day(s)<input class="timeInput input" id="day" type="number" value=0></span>
-            <span class="timeInputSpan mr-3">Hour(s)<input class="timeInput input" id="hr" type="number" value=0></span>
-            <span class="timeInputSpan mr-3">Minute(s)<input class="timeInput input" id="min" type="number" value=0></span>
-            <span class="timeInputSpan">Second(s)<input class="timeInput input" id="sec" type="number" value=0></span>
+            <span class="timeInputSpan mr-3">Days<input class="timeInput input" id="day" type="number" value=0></span>
+            <span class="timeInputSpan mr-3">Hours<input class="timeInput input" id="hr" type="number" value=0></span>
+            <span class="timeInputSpan mr-3">Minutes<input class="timeInput input" id="min" type="number" value=0></span>
+            <span class="timeInputSpan">Seconds<input class="timeInput input" id="sec" type="number" value=0></span>
           </div>
           <p class="control mt-2" id="volumeButton">
             <a class="button">Calculate</a>
@@ -138,22 +138,22 @@
           <div class="timeRateInputContainer">
             <div class="field has-addons" style="display:flex;">
               <p class="control" style="width:50%;">
-                <input class="input timeElapsedInput mr-3" id="timeVolumeQuantity" type="number" placeholder="Volume">
+                <input class="input timeElapsedInput" id="timeVolumeQuantity" type="number" placeholder="Volume">
               </p>
               <p class="control" style="width:50%;">
                 <span class="select" style="width:100%;">
-                  <select id="timeVolumeUnit" class="unitOptions mr-3" style="width:100%;"></select>
+                  <select id="timeVolumeUnit" class="unitOptions" style="width:100%;"></select>
                 </span>
               </p>
             </div>
             <span>at</span>
             <div class="field has-addons mt-2" style="display:flex; justify-content:center; align-items:center;">
               <p class="control" style="width:50%;">
-                <input class="input timeElapsedInput mr-3" id="timeRateQuantity" type="number" placeholder="Rate">
+                <input class="input timeElapsedInput" id="timeRateQuantity" type="number" placeholder="Rate">
               </p>
               <p class="control" style="width:50%;">
                 <span class="select" style="width:100%;">
-                  <select id="timeRateUnit" class="unitOptions mr-3" style="width:100%;"></select>
+                  <select id="timeRateUnit" class="unitOptions" style="width:100%;"></select>
                 </span>
               </p>
               <span style="padding:2%;">per</span>

@@ -62,7 +62,10 @@ const tableGenerator = (params, table) => {
 }
 
 // Inputs and dictionaries for the table generator
-const table_dict = {columns: {sec: 'per second', min: 'per minute', hr: 'per hour', day: 'per day'}}
+const table_dict = {
+  columns: {sec: 'per second', min: 'per minute', hr: 'per hour', day: 'per day'},
+  rows: {'L': 'Litre', 'Imp. gal': 'Imperial Gallon', 'm\u00B3': 'Cubic Metre', 'cm\u00B3': 'Cubic Centimetre', 'in\u00B3': 'Cubic Inch', 'ft\u00B3': 'Cubic Foot'}
+}
 let input = {
   columns: ['per second', 'per minute', 'per hour', 'per day'],
   rows: ['Imperial Gallon', 'Litre', 'Cubic Metre', 'Cubic Centimetre', 'Cubic Foot', 'Cubic Inch']
@@ -72,9 +75,10 @@ tableGenerator(input, rates_table)
 
 // Populates table with data
 let table_pop = (data) => {
+  console.log(data)
   for (let key in data){
     for (let time in data[key]){
-      let cell = document.querySelector(`[data-column="${table_dict.columns[time]}"][data-row="${key}"]`)
+      let cell = document.querySelector(`[data-column="${table_dict.columns[time]}"][data-row="${table_dict.rows[key]}"]`)
       if (data[key][time] <= 0.0001 || data[key][time] > Math.pow(10, 9)) {
         let itemExponent = parseFloat(data[key][time]).toExponential(3)
         let arr = itemExponent.split('e')
@@ -89,7 +93,7 @@ let table_pop = (data) => {
 let input_validator = (fields) => {
   let allValid = true
   fields.forEach((field) => {
-    if (parseInt(field) == NaN){
+    if (parseInt(field) == NaN || parseInt(field) < 0){
       allValid = false
       return {valid:allValid, invalid:field}
     }
@@ -104,8 +108,8 @@ conversionButton.addEventListener('click', (e) => {
   if (validInput.valid){
     const conversion = new Converter(conversionUnit.value, conversionQuantity.value)
     const calculation = conversion.calculate_conversion()
-    let inputAmount = calculation[calculation.name]
-    calculation[calculation.name] = '-'
+    let inputAmount = calculation[calculation.sym]
+    calculation[calculation.sym] = '-'
     console.log(calculation)
     const unitList = Object.keys(calculation)
     let table = document.getElementById('conversion-table')
@@ -115,12 +119,12 @@ conversionButton.addEventListener('click', (e) => {
     let payload = [
       calculation.name,
       inputAmount,
-      calculation['Imperial Gallon'],
-      calculation['Litre'],
-      calculation['Cubic Metre'],
-      calculation['Cubic Centimetre'],
-      calculation['Cubic Foot'],
-      calculation['Cubic Inch']
+      calculation['Imp. gal'],
+      calculation['L'],
+      calculation['m\u00B3'],
+      calculation['cm\u00B3'],
+      calculation['ft\u00B3'],
+      calculation['in\u00B3']
     ]
     payload.forEach((item) => {
       let cell = document.createElement('td')
@@ -210,5 +214,14 @@ timeButton.addEventListener('click', (e) => {
   if (validInput.valid){
     const conversion = new Converter(timeRateUnit.value, timeRateQuantity.value)
     let time_required = conversion.calculate_time_required(timeVolumeQuantity.value, timeVolumeUnit.value, timeRateTimeUnit.value)
+    timeResultsDisplay.innerHTML = ''
+    timeResultsDisplay.style.display = "flex"
+    let resultSpan = document.createElement('span')
+    resultSpan.innerHTML = `Day(s): ${time_required.days.toLocaleString()} <br>
+    Hour(s): ${time_required.hours.toLocaleString()} <br>
+    Minute(s): ${time_required.minutes.toLocaleString()} <br>
+    Second(s): ${time_required.seconds.toLocaleString()}`
+    timeResultsDisplay.appendChild(resultSpan)
   }
+
 })
