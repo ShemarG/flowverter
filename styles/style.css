@@ -94,6 +94,17 @@ only screen and (max-width: 760px),
     display: none;
   }
 
+  .fake-td{
+    border: 1px solid #dbdbdb;
+    padding: 10px;
+  }
+
+  .td0, .td5, .td10, .td15, .td20, .td25{
+    background-color: #f5f5f5;
+    margin-top: 15px;
+    font-weight: bold;
+  }
+
 	/*
 	Label the data
 	*/

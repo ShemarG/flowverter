@@ -163,11 +163,47 @@ conversionButton.addEventListener('click', (e) => {
   // tableArea.appendChild(table)
 })
 
+const format_number = (number) => {
+  if (number <= 0.0001 || number > Math.pow(10, 9)) {
+    let itemExponent = parseFloat(number).toExponential(3)
+    let arr = itemExponent.split('e')
+    return `${arr[0]} \u2715 10${arr[1].sup()}`
+  } else {
+    return number.toLocaleString()
+  }
+}
+
+const mobile_view = (rates) => {
+  const mobileTable = document.getElementById('mobile-table')
+  mobileTable.innerHTML = ''
+  const keys = Object.keys(rates)
+  const output = []
+  rates_table.style.display = 'none'
+  keys.forEach((unit) => {
+    output.push(`${unit}`)
+    output.push(`Per Second ${format_number(rates[unit]['sec'])}`)
+    output.push(`Per Minute ${format_number(rates[unit]['min'])}`)
+    output.push(`Per Hour ${format_number(rates[unit]['hr'])}`)
+    output.push(`Per Day ${format_number(rates[unit]['day'])}`)
+  })
+  output.forEach((item, i) => {
+    let list_item = document.createElement('p')
+    list_item.classList.add('fake-td')
+    list_item.classList.add(`td${i}`)
+    list_item.innerHTML = item
+    mobileTable.appendChild(list_item)
+  })
+
+}
+
 flowrateButton.addEventListener('click', (e) => {
   let validInput = input_validator([flowrateQuantity.value])
   if (validInput.valid){
     const conversion = new Converter(flowrateUnit.value, flowrateQuantity.value)
     let rates = conversion.calculate_rates(flowrateTimeUnit.value)
+    if(window.screen.availWidth < 760){
+      return mobile_view(rates)
+    }
     table_pop(rates)
   }
 })
